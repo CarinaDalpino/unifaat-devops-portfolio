@@ -18,3 +18,9 @@ Aqui documento minha evolução desde os fundamentos de Git e Docker até pipeli
 ## Aprendizados
 
 [Atualize esta seção a cada aula com seus principais aprendizados]
+## Fluxo Git - Aula 01
+
+Nesta aula utilizei uma branch de feature para desenvolver a aplicação e,
+após finalizar e testar os arquivos, realizei o merge para a branch main.
+
+Branch utilizada: feature/aula-01-app
