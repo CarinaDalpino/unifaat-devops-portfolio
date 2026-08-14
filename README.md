@@ -1,7 +1,7 @@
 # Portfólio DevOps — UniFAAT 2026-2
 
-**Aluno:** [Seu nome completo]  
-**RA:** [Seu RA]  
+**Aluno:** [Carina Gonçalves dos Santos Dalpino]  
+**RA:** [6325109]  
 **Disciplina:** DevOps — Centro Universitário UniFAAT  
 **Professor:** Alexandre Tavares  
 **Semestre:** 2026-2
