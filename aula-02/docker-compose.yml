@@ -1,0 +1,73 @@
+# Docker Compose — TechNova API + PostgreSQL + Redis
+# Aula 02 TF — Carina Gonçalves dos Santos Dalpino (RA: 6325109)
+
+services:
+
+  # ─── Serviço da API Node.js ───────────────────────────────────────────────
+  api:
+    build: .                          # Constrói a imagem a partir do Dockerfile local
+    container_name: technova-api
+    ports:
+      - "${PORT:-3000}:3000"          # Porta mapeada do host para o container
+    environment:
+      - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy    # Só sobe após o PostgreSQL estar saudável
+      redis:
+        condition: service_healthy    # Só sobe após o Redis estar saudável
+    networks:
+      - technova-net
+    restart: unless-stopped
+
+  # ─── Serviço PostgreSQL ───────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine         # Imagem oficial leve do PostgreSQL 15
+    container_name: technova-db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # Volume nomeado para persistência dos dados
+    networks:
+      - technova-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ─── Serviço Redis ────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine             # Imagem oficial leve do Redis 7
+    container_name: technova-cache
+    networks:
+      - technova-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]  # Retorna PONG quando está pronto
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+# ─── Redes ────────────────────────────────────────────────────────────────
+networks:
+  technova-net:
+    driver: bridge                    # Rede bridge customizada para comunicação interna
+
+# ─── Volumes ──────────────────────────────────────────────────────────────
+volumes:
+  pgdata:                             # Volume nomeado — persiste dados do PostgreSQL
+                                      # entre docker compose down / up
