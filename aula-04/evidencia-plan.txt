@@ -1,23 +1,23 @@
-[0m[1mtls_private_key.technova: Refreshing state... [id=6b7da1e9f07d4d2abdd1159f18bd8083e67f69ba][0m
-[0m[1mlocal_file.private_key: Refreshing state... [id=c34273c10294eb18116a1a23dcf81ddb65f2bdd8][0m
+[0m[1mtls_private_key.technova: Refreshing state... [id=7a32d3a5e1234a4a6b5ced7977f3c286c29108db][0m
+[0m[1mlocal_file.private_key: Refreshing state... [id=6ddceddb6bc9b69f5c9e45559d0e2baebf64757f][0m
 [0m[1mdata.aws_ami.amazon_linux_2023: Reading...[0m[0m
-[0m[1maws_vpc.main: Refreshing state... [id=vpc-0fe88863318576cf2][0m
-[0m[1maws_iam_role.ec2_role: Refreshing state... [id=technova-ec2-role][0m
 [0m[1maws_key_pair.technova: Refreshing state... [id=technova-key][0m
-[0m[1maws_iam_role_policy_attachment.s3_read: Refreshing state... [id=technova-ec2-role-20260826225649874600000001][0m
+[0m[1maws_iam_role.ec2_role: Refreshing state... [id=technova-ec2-role][0m
+[0m[1maws_vpc.main: Refreshing state... [id=vpc-08493734e9b3b1e97][0m
+[0m[1maws_iam_role_policy_attachment.s3_read: Refreshing state... [id=technova-ec2-role-20260826230837120100000001][0m
 [0m[1maws_iam_instance_profile.ec2_profile: Refreshing state... [id=technova-ec2-profile][0m
-[0m[1mdata.aws_ami.amazon_linux_2023: Read complete after 1s [id=ami-0fe74bfcad4fd6bd2][0m
-[0m[1maws_internet_gateway.main: Refreshing state... [id=igw-0b0ad969e0cf4aac9][0m
-[0m[1maws_subnet.private[1]: Refreshing state... [id=subnet-048232018c73b0fa8][0m
-[0m[1maws_subnet.public[0]: Refreshing state... [id=subnet-0000af303657a5215][0m
-[0m[1maws_subnet.public[1]: Refreshing state... [id=subnet-08eb1fe4275ff4cc6][0m
-[0m[1maws_subnet.private[0]: Refreshing state... [id=subnet-000ce86155be187dd][0m
-[0m[1maws_security_group.db: Refreshing state... [id=sg-0666cdb51b73f0712][0m
-[0m[1maws_security_group.api: Refreshing state... [id=sg-0bb8138c8b3ab1e3e][0m
-[0m[1maws_route_table.public: Refreshing state... [id=rtb-043e0dca99c6f08d1][0m
-[0m[1maws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-072424c728ff88aef][0m
-[0m[1maws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-097878e42a4847cb4][0m
-[0m[1maws_instance.api: Refreshing state... [id=i-0c93b41c49539bd69][0m
+[0m[1mdata.aws_ami.amazon_linux_2023: Read complete after 2s [id=ami-0fe74bfcad4fd6bd2][0m
+[0m[1maws_internet_gateway.main: Refreshing state... [id=igw-0c61f897a9e8efe13][0m
+[0m[1maws_security_group.db: Refreshing state... [id=sg-067aa32eec300495d][0m
+[0m[1maws_subnet.private[0]: Refreshing state... [id=subnet-08544414352d3f293][0m
+[0m[1maws_subnet.public[1]: Refreshing state... [id=subnet-008144a3ee9ced578][0m
+[0m[1maws_subnet.private[1]: Refreshing state... [id=subnet-0617a0d60954f653b][0m
+[0m[1maws_security_group.api: Refreshing state... [id=sg-0ce8c8ffb9f3858c8][0m
+[0m[1maws_subnet.public[0]: Refreshing state... [id=subnet-072ea228da6cd1373][0m
+[0m[1maws_route_table.public: Refreshing state... [id=rtb-0a9f47f2cdf4436ba][0m
+[0m[1maws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-0c137cc2cb489b3e4][0m
+[0m[1maws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-0c64e88f8e0216534][0m
+[0m[1maws_instance.api: Refreshing state... [id=i-025ae5e650a218bb2][0m
 
 [0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
 

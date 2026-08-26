@@ -1,0 +1,6 @@
+v18.20.8
+{
+    "UserId": "AROAZAOVPOXKRCHGRG66N:i-025ae5e650a218bb2",
+    "Account": "619459868117",
+    "Arn": "arn:aws:sts::619459868117:assumed-role/technova-ec2-role/i-025ae5e650a218bb2"
+}
