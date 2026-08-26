@@ -12,11 +12,6 @@
 .env
 *.auto.tfvars
 
-# Evidências geradas localmente (commitar manualmente se quiser)
-evidencia-plan.txt
-evidencia-api.json
-evidencia-ssh.txt
-
 # Crash logs
 crash.log
 crash.*.log
