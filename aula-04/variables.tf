@@ -53,7 +53,7 @@ variable "availability_zones" {
 variable "instance_type" {
   description = "Tipo da instância EC2 (Free Tier)"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "api_port" {
