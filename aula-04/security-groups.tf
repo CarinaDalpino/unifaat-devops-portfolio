@@ -7,13 +7,14 @@ resource "aws_security_group" "api" {
   description = "Security Group da API TechNova"
   vpc_id      = aws_vpc.main.id
 
-  # SSH
+  # SSH — DEV: aberto para 0.0.0.0/0 via var.allowed_ssh_cidr
+  # PROD: restringir a IP específico ou usar Bastion Host/VPN
   ingress {
-    description = "SSH"
+    description = "SSH - restringir em producao (var.allowed_ssh_cidr)"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.allowed_ssh_cidr]
   }
 
   # API Node.js

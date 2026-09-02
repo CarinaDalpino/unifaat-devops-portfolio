@@ -51,7 +51,15 @@ variable "availability_zones" {
 
 # EC2
 variable "instance_type" {
-  description = "Tipo da instância EC2 (Free Tier)"
+  description = <<-EOT
+    Tipo da instância EC2.
+    Nota: O requisito original especifica t2.micro (Free Tier clássico).
+    Usamos t3.micro (Free Tier novo) pois na região us-east-1 o t2.micro
+    não estava disponível como Free Tier nesta conta AWS.
+    Ambos estão no Free Tier, mas t3.micro é a geração mais recente e
+    oferece melhor performance com o mesmo custo zero.
+    Validar elegibilidade Free Tier em: https://aws.amazon.com/free/
+  EOT
   type        = string
   default     = "t3.micro"
 }
@@ -60,4 +68,16 @@ variable "api_port" {
   description = "Porta da API Node.js"
   type        = number
   default     = 3000
+}
+
+variable "allowed_ssh_cidr" {
+  description = <<-EOT
+    CIDR permitido para acesso SSH (porta 22).
+    DEV: 0.0.0.0/0 (qualquer IP — apenas para laboratório)
+    PROD: usar IP específico do administrador, ex: "203.0.113.10/32"
+    RECOMENDAÇÃO: Em produção, substituir por Bastion Host ou VPN
+    e remover acesso SSH direto ao EC2.
+  EOT
+  type        = string
+  default     = "0.0.0.0/0"
 }
