@@ -24,44 +24,18 @@ resource "local_file" "private_key" {
 }
 
 # -----------------------------------------------------------------------------
-# IAM ROLE — Instance Profile para EC2
+# IAM — Learner Lab usa a LabRole e LabInstanceProfile pré-existentes
+# Não é permitido criar IAM Roles ou Instance Profiles no voclabs
 # -----------------------------------------------------------------------------
 
-resource "aws_iam_role" "ec2_role" {
-  name        = "${var.project_name}-ec2-role"
-  description = "Role IAM para instância EC2 TechNova"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-
-  tags = {
-    Name = "${var.project_name}-ec2-role"
-  }
+# Busca a LabRole que o AWS Academy Learner Lab já fornece
+data "aws_iam_role" "lab_role" {
+  name = "LabRole"
 }
 
-# Attach da policy S3 Read Only (Free Tier, sem custos extras)
-resource "aws_iam_role_policy_attachment" "s3_read" {
-  role       = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
-}
-
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "${var.project_name}-ec2-profile"
-  role = aws_iam_role.ec2_role.name
-
-  tags = {
-    Name = "${var.project_name}-ec2-profile"
-  }
+# Busca o LabInstanceProfile que o AWS Academy Learner Lab já fornece
+data "aws_iam_instance_profile" "lab_profile" {
+  name = "LabInstanceProfile"
 }
 
 # -----------------------------------------------------------------------------
@@ -74,7 +48,7 @@ resource "aws_instance" "api" {
   subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.api.id]
   key_name               = aws_key_pair.technova.key_name
-  iam_instance_profile   = aws_iam_instance_profile.ec2_profile.name
+  iam_instance_profile   = data.aws_iam_instance_profile.lab_profile.name
 
   user_data = base64encode(<<-EOF
     #!/bin/bash
