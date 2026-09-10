@@ -1,0 +1,15 @@
+# Terraform state — NUNCA versionar (contém senhas!)
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+# Variáveis com dados sensíveis
+terraform.tfvars
+
+# Chaves privadas SSH
+*.pem
+*.key
+
+# Arquivos de evidência locais (opcionais)
+evidencia-plan.txt
