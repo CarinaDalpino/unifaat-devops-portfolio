@@ -1,0 +1,58 @@
+======================================================
+EVIDENCIA DO BACKEND S3 + DYNAMODB (Remote State)
+======================================================
+
+### Bucket criado:
+technova-terraform-state-812c4d1b
+
+### aws s3 ls (lista buckets):
+2026-09-10 21:22:05 technova-terraform-state-6aefe41d
+2026-09-10 21:44:03 technova-terraform-state-812c4d1b
+2026-09-10 21:20:55 technova-tftest-991
+
+### Versionamento:
+{
+    "Status": "Enabled"
+}
+
+### Encriptacao (SSE):
+{
+    "ServerSideEncryptionConfiguration": {
+        "Rules": [
+            {
+                "ApplyServerSideEncryptionByDefault": {
+                    "SSEAlgorithm": "AES256"
+                },
+                "BucketKeyEnabled": false,
+                "BlockedEncryptionTypes": {
+                    "EncryptionType": [
+                        "SSE-C"
+                    ]
+                }
+            }
+        ]
+    }
+}
+
+### Block Public Access:
+{
+    "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+    }
+}
+
+### DynamoDB (locking table):
+{
+    "Name": "technova-terraform-locks",
+    "Status": "ACTIVE",
+    "Key": [
+        {
+            "AttributeName": "LockID",
+            "KeyType": "HASH"
+        }
+    ],
+    "Billing": "PAY_PER_REQUEST"
+}

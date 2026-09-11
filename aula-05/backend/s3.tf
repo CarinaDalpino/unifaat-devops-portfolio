@@ -7,6 +7,10 @@ resource "random_id" "suffix" {
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "${var.project_name}-terraform-state-${random_id.suffix.hex}"
 
+  # O AWS Academy Learner Lab (SCP) nega s3:GetBucketObjectLockConfiguration.
+  # Declarar explicitamente evita que o provider faca essa chamada bloqueada.
+  object_lock_enabled = false
+
   tags = {
     Name    = "${var.project_name}-terraform-state"
     Project = "TechNova"

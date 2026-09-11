@@ -1,0 +1,14 @@
+api_url = "http://98.92.224.42:3000"
+connection_string = "psql -h technova-db.cbdvkyotiyum.us-east-1.rds.amazonaws.com -U technova_admin -d technova -p 5432"
+ec2_public_ip = "98.92.224.42"
+private_subnet_ids = [
+  "subnet-0f1af593c6ed24647",
+  "subnet-0070f2c065edcd612",
+]
+public_subnet_id = "subnet-056f4049d230369cd"
+rds_address = "technova-db.cbdvkyotiyum.us-east-1.rds.amazonaws.com"
+rds_database_name = "technova"
+rds_endpoint = "technova-db.cbdvkyotiyum.us-east-1.rds.amazonaws.com:5432"
+rds_port = 5432
+ssh_command = "ssh -i technova-key.pem ec2-user@98.92.224.42"
+vpc_id = "vpc-00ba25d80afd30b63"

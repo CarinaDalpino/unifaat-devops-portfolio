@@ -1,0 +1,12 @@
+ total_pedidos 
+---------------
+             3
+(1 row)
+
+ id | customer_name |       product       | quantity |  total  |         created_at         
+----+---------------+---------------------+----------+---------+----------------------------
+  1 | Maria Silva   | Laptop TechNova Pro |        1 | 4599.90 | 2026-09-11 00:35:10.869184
+  2 | Joao Santos   | Monitor 27          |        2 | 2398.00 | 2026-09-11 00:35:10.869184
+  3 | Ana Costa     | Teclado Mecanico    |        3 |  897.00 | 2026-09-11 00:35:10.869184
+(3 rows)
+

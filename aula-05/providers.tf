@@ -21,6 +21,12 @@ terraform {
   # 2. Descomente o bloco abaixo com os valores corretos
   # 3. Execute: terraform init -migrate-state
 
+  # Backend S3 — configurado apos criar a infraestrutura de backend
+  # Para ativar:
+  # 1. Crie o bucket S3 e a tabela DynamoDB (via backend/ ou AWS CLI)
+  # 2. Descomente o bloco abaixo com o nome real do bucket
+  # 3. Execute: terraform init -migrate-state
+  #
   # backend "s3" {
   #   bucket         = "technova-terraform-state-XXXXXXXX"
   #   key            = "aula-05/terraform.tfstate"
