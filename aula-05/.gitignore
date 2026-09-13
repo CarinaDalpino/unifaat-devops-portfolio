@@ -2,7 +2,8 @@
 *.tfstate
 *.tfstate.backup
 .terraform/
-.terraform.lock.hcl
+
+# .terraform.lock.hcl DEVE ser versionado (boa prática oficial HashiCorp)
 
 # Variáveis com dados sensíveis
 terraform.tfvars

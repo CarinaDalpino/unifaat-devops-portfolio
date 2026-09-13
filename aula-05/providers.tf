@@ -15,25 +15,19 @@ terraform {
     }
   }
 
-  # Backend S3 — configurado após criar a infraestrutura de backend
-  # Para ativar:
-  # 1. Execute terraform apply na pasta backend/ e anote os outputs
-  # 2. Descomente o bloco abaixo com os valores corretos
-  # 3. Execute: terraform init -migrate-state
-
-  # Backend S3 — configurado apos criar a infraestrutura de backend
-  # Para ativar:
-  # 1. Crie o bucket S3 e a tabela DynamoDB (via backend/ ou AWS CLI)
-  # 2. Descomente o bloco abaixo com o nome real do bucket
-  # 3. Execute: terraform init -migrate-state
-  #
-  # backend "s3" {
-  #   bucket         = "technova-terraform-state-XXXXXXXX"
-  #   key            = "aula-05/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   encrypt        = true
-  #   dynamodb_table = "technova-terraform-locks"
-  # }
+  # Backend S3 — Remote State com locking via DynamoDB
+  # Bucket S3 criado/configurado via AWS CLI (versionamento, encriptação AES256,
+  # block public access) porque a SCP do AWS Academy nega
+  # s3:GetBucketObjectLockConfiguration, impedindo o Terraform de gerenciar o bucket.
+  # A tabela DynamoDB de locking é gerenciada por Terraform em backend/.
+  # Inicialização: terraform init  (state gravado direto no S3).
+  backend "s3" {
+    bucket         = "technova-terraform-state-f6c1c8ee"
+    key            = "aula-05/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "technova-terraform-locks"
+  }
 }
 
 provider "aws" {

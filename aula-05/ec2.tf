@@ -34,6 +34,7 @@ resource "aws_key_pair" "technova" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 
@@ -82,6 +83,7 @@ resource "aws_security_group" "ec2" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 

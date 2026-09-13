@@ -3,12 +3,13 @@ EVIDENCIA DO BACKEND S3 + DYNAMODB (Remote State)
 ======================================================
 
 ### Bucket criado:
-technova-terraform-state-812c4d1b
+technova-terraform-state-f6c1c8ee
 
 ### aws s3 ls (lista buckets):
-2026-09-10 21:22:05 technova-terraform-state-6aefe41d
-2026-09-10 21:44:03 technova-terraform-state-812c4d1b
-2026-09-10 21:20:55 technova-tftest-991
+2026-09-13 18:05:39 technova-terraform-state-f6c1c8ee
+
+### State armazenado no S3:
+2026-09-13 18:21:27      56301 terraform.tfstate
 
 ### Versionamento:
 {
@@ -17,21 +18,7 @@ technova-terraform-state-812c4d1b
 
 ### Encriptacao (SSE):
 {
-    "ServerSideEncryptionConfiguration": {
-        "Rules": [
-            {
-                "ApplyServerSideEncryptionByDefault": {
-                    "SSEAlgorithm": "AES256"
-                },
-                "BucketKeyEnabled": false,
-                "BlockedEncryptionTypes": {
-                    "EncryptionType": [
-                        "SSE-C"
-                    ]
-                }
-            }
-        ]
-    }
+    "SSEAlgorithm": "AES256"
 }
 
 ### Block Public Access:

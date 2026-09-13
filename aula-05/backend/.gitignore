@@ -1,6 +1,7 @@
 .terraform/
-.terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 terraform.tfvars
 *.pem
+
+# .terraform.lock.hcl DEVE ser versionado (boa prática oficial HashiCorp)

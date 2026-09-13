@@ -1,10 +1,32 @@
 === STATE ARMAZENADO NO S3 ===
-2026-09-10 21:45:56      56307 terraform.tfstate
+$ aws s3 ls s3://technova-terraform-state-f6c1c8ee/aula-05/
+2026-09-13 18:21:27      56301 terraform.tfstate
+
+=== STATE LOCAL (nao existe - state vive no S3) ===
+$ ls -la terraform.tfstate
+ls: cannot access 'terraform.tfstate': No such file or directory
+
+=== TERRAFORM STATE LIST (backend remoto) ===
+data.aws_ami.amazon_linux_2023
+data.aws_availability_zones.available
+aws_db_instance.main
+aws_db_subnet_group.main
+aws_instance.api
+aws_internet_gateway.main
+aws_key_pair.technova
+aws_route_table.public
+aws_route_table_association.public
+aws_security_group.ec2
+aws_security_group.rds
+aws_subnet.private_1
+aws_subnet.private_2
+aws_subnet.public
+aws_vpc.main
+local_file.private_key
+tls_private_key.technova
 
 === TERRAFORM PLAN (backend remoto - No changes) ===
-[0m[1maws_db_instance.main: Refreshing state... [id=db-CRWJNROIRIKCRVP23FXFISUTPU][0m
+No changes. Your infrastructure matches the configuration.
 
-[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
-
-[0mTerraform has compared your real infrastructure against your configuration
+Terraform has compared your real infrastructure against your configuration
 and found no differences, so no changes are needed.

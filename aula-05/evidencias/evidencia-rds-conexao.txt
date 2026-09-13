@@ -1,3 +1,11 @@
+=== CONEXAO EC2 -> RDS via psql (do EC2 na subnet publica para o RDS na subnet privada) ===
+
+$ ssh -i technova-key.pem ec2-user@3.82.3.212 "which psql && psql --version"
+/usr/bin/psql
+psql (PostgreSQL) 15.19
+
+$ psql -h technova-db.cyzppgadpjvi.us-east-1.rds.amazonaws.com -U technova_admin -d technova -p 5432
+
 CREATE TABLE
 INSERT 0 3
                                               version                                              
@@ -7,8 +15,7 @@ INSERT 0 3
 
  id | customer_name |       product       | quantity |  total  |         created_at         
 ----+---------------+---------------------+----------+---------+----------------------------
-  1 | Maria Silva   | Laptop TechNova Pro |        1 | 4599.90 | 2026-09-11 00:35:10.869184
-  2 | Joao Santos   | Monitor 27          |        2 | 2398.00 | 2026-09-11 00:35:10.869184
-  3 | Ana Costa     | Teclado Mecanico    |        3 |  897.00 | 2026-09-11 00:35:10.869184
+  1 | Maria Silva   | Laptop TechNova Pro |        1 | 4599.90 | 2026-09-13 21:22:13.239572
+  2 | Joao Santos   | Monitor 27          |        2 | 2398.00 | 2026-09-13 21:22:13.239572
+  3 | Ana Costa     | Teclado Mecanico    |        3 |  897.00 | 2026-09-13 21:22:13.239572
 (3 rows)
-

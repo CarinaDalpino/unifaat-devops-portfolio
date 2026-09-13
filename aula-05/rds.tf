@@ -11,6 +11,7 @@ resource "aws_db_subnet_group" "main" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 
@@ -45,6 +46,7 @@ resource "aws_security_group" "rds" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 

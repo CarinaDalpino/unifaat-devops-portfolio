@@ -35,6 +35,7 @@ resource "aws_internet_gateway" "main" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 
@@ -54,6 +55,7 @@ resource "aws_subnet" "public" {
     ManagedBy   = "Terraform"
     Owner       = "6325109"
     Type        = "public"
+    Aula        = "05"
   }
 }
 
@@ -72,6 +74,7 @@ resource "aws_subnet" "private_1" {
     ManagedBy   = "Terraform"
     Owner       = "6325109"
     Type        = "private"
+    Aula        = "05"
   }
 }
 
@@ -87,6 +90,7 @@ resource "aws_subnet" "private_2" {
     ManagedBy   = "Terraform"
     Owner       = "6325109"
     Type        = "private"
+    Aula        = "05"
   }
 }
 
@@ -107,6 +111,7 @@ resource "aws_route_table" "public" {
     Environment = "development"
     ManagedBy   = "Terraform"
     Owner       = "6325109"
+    Aula        = "05"
   }
 }
 
