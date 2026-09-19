@@ -1,0 +1,63 @@
+==================================================
+EVIDENCIA terraform apply - AMBIENTE DEV (AWS real)
+Conta AWS Academy: 775148702826
+Data: 2026-09-19 14:08
+==================================================
+
+### Resultado do apply ###
+Apply complete! Resources: 19 added, 0 changed, 0 destroyed.[0m
+
+### Outputs (recursos reais criados) ###
+api_instance_id = "i-0642c42a442bc73d5"
+api_public_ip = "3.92.42.160"
+api_sg_id = "sg-0590ab15a42f7ebc4"
+db_endpoint = "technova-dev-db.cxxotqeqislx.us-east-1.rds.amazonaws.com:5432"
+private_subnet_ids = [
+  "subnet-0915e046c167f5f0c",
+  "subnet-0ac295aa4e39afd1d",
+]
+public_subnet_ids = [
+  "subnet-077485db0a7b4e93e",
+  "subnet-08376caaa0118a260",
+]
+rds_sg_id = "sg-062c9ad5fc349a2e1"
+vpc_id = "vpc-0748b22cd2300a1f3"
+### VPC criada ###
+--------------------------------------------------------------
+|                        DescribeVpcs                        |
++-------------+--------------------+-------------------------+
+|    Cidr     |       Name         |          VpcId          |
++-------------+--------------------+-------------------------+
+|  10.0.0.0/16|  technova-dev-vpc  |  vpc-0748b22cd2300a1f3  |
+|  10.0.0.0/16|  technova-dev-vpc  |  vpc-0cf033fbf9ae2b6d1  |
++-------------+--------------------+-------------------------+
+
+### Subnets (4) ###
+------------------------------------------------------
+|                   DescribeSubnets                  |
++--------------+--------------------------+----------+
+|     Cidr     |          Name            |  Type    |
++--------------+--------------------------+----------+
+|  10.0.2.0/24 |  technova-dev-public-2   |  public  |
+|  10.0.1.0/24 |  technova-dev-public-1   |  public  |
+|  10.0.3.0/24 |  technova-dev-private-1  |  private |
+|  10.0.4.0/24 |  technova-dev-private-2  |  private |
++--------------+--------------------------+----------+
+
+### EC2 ###
+---------------------------------------------------------------
+|                      DescribeInstances                      |
++-------------+-----------------------+----------+------------+
+|     IP      |          Id           |  State   |   Type     |
++-------------+-----------------------+----------+------------+
+|  3.92.42.160|  i-0642c42a442bc73d5  |  running |  t2.micro  |
++-------------+-----------------------+----------+------------+
+
+### RDS ###
+-------------------------------------------------------------
+|                    DescribeDBInstances                    |
++--------------+-----------+-------------------+------------+
+|     Class    |  Engine   |        Id         |  Status    |
++--------------+-----------+-------------------+------------+
+|  db.t3.micro |  postgres |  technova-dev-db  |  available |
++--------------+-----------+-------------------+------------+
