@@ -1,0 +1,24 @@
+==============================================
+EVIDENCIA terraform plan - AMBIENTE STAGING
+Conta AWS: 775148702826 (AWS Academy Learner Lab)
+==============================================
+  # module.api_server.aws_instance.this will be created
+  # module.api_sg.aws_security_group.this will be created
+  # module.api_sg.aws_security_group_rule.egress[0] will be created
+  # module.api_sg.aws_security_group_rule.ingress[0] will be created
+  # module.api_sg.aws_security_group_rule.ingress[1] will be created
+  # module.database.aws_db_instance.this will be created
+  # module.database.aws_db_subnet_group.this will be created
+  # module.rds_sg.aws_security_group.this will be created
+  # module.rds_sg.aws_security_group_rule.egress[0] will be created
+  # module.rds_sg.aws_security_group_rule.ingress[0] will be created
+  # module.vpc.aws_internet_gateway.main will be created
+  # module.vpc.aws_route_table.public will be created
+  # module.vpc.aws_route_table_association.public["public-1"] will be created
+  # module.vpc.aws_route_table_association.public["public-2"] will be created
+  # module.vpc.aws_subnet.this["private-1"] will be created
+  # module.vpc.aws_subnet.this["private-2"] will be created
+  # module.vpc.aws_subnet.this["public-1"] will be created
+  # module.vpc.aws_subnet.this["public-2"] will be created
+  # module.vpc.aws_vpc.main will be created
+Plan: 19 to add, 0 to change, 0 to destroy.

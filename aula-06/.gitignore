@@ -1,0 +1,17 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
+.terraform.lock.hcl
+
+# Credenciais AWS Academy (NUNCA versionar)
+aws-creds.sh
+
+# Secrets
+*.pem
+.env
+
+# Nota: os terraform.tfvars dos ambientes SAO versionados para o professor
+# avaliar dev vs staging. As senhas sao apenas de laboratorio (Learner Lab),
+# nao sao credenciais reais.
