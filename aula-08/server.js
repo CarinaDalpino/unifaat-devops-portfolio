@@ -1,3 +1,4 @@
+const erroDemo = "aspas duplas e sem ponto e virgula aqui"
 const express = require('express');
 const cors = require('cors');
 
