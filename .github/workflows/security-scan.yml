@@ -65,7 +65,7 @@ jobs:
 
       - name: Verificar Dockerfile security
         env:
-          DOCKERFILE: aula-09/Dockerfile
+          DOCKERFILE: aula-09/technova-api/Dockerfile
         run: |
           echo "" >> /tmp/security-report.md
           echo "### Verificação de Dockerfile" >> /tmp/security-report.md

@@ -11,7 +11,7 @@ Pipeline completo da TechNova API: build e push de imagem para o GitHub Containe
 
 ## Estrutura
 
-Os workflows ficam na **raiz** do repositório (exigência do GitHub Actions). A aplicação vive em `aula-09/`.
+Os workflows ficam na **raiz** do repositório (exigência do GitHub Actions). A aplicação vive em `aula-09/technova-api/`.
 
 ```
 unifaat-devops-portfolio/
@@ -23,14 +23,15 @@ unifaat-devops-portfolio/
 │   └── scripts/
 │       └── ai-review.js        # análise do diff por regras + quality gate
 └── aula-09/
-    ├── Dockerfile              # multi-stage, usuário não-root, HEALTHCHECK
-    ├── .dockerignore
-    ├── server.js
-    ├── package.json
-    ├── __tests__/
-    ├── screenshots/            # evidências do TF
     ├── ia-cicd-analise.md      # documentação da estratégia e análise crítica
-    └── README.md
+    ├── README.md
+    ├── screenshots/            # evidências do TF
+    └── technova-api/           # aplicação (build context)
+        ├── Dockerfile          # multi-stage, usuário não-root, HEALTHCHECK
+        ├── .dockerignore
+        ├── server.js
+        ├── package.json
+        └── __tests__/
 ```
 
 ---
@@ -71,7 +72,7 @@ Detalhes e análise crítica em [`ia-cicd-analise.md`](./ia-cicd-analise.md).
 ### Build e execução da imagem
 
 ```bash
-cd aula-09
+cd aula-09/technova-api
 docker build -t technova-api:local .
 docker run -d -p 3000:3000 --name technova technova-api:local
 curl http://localhost:3000/health
@@ -81,7 +82,7 @@ docker stop technova && docker rm technova
 ### Lint e testes
 
 ```bash
-cd aula-09
+cd aula-09/technova-api
 npm install
 npm run lint
 npm test
