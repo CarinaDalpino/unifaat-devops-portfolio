@@ -6,6 +6,7 @@ on:
     paths:
       - 'aula-10/terraform/**.tf'
       - 'aula-10/terraform/**.tfvars'
+  workflow_dispatch:
 
 permissions:
   contents: read
