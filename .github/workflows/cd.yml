@@ -1,0 +1,161 @@
+name: CD Pipeline - Build and Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'aula-10/technova-api/**'
+      - '.github/workflows/cd.yml'
+
+env:
+  AWS_REGION: us-east-1
+  IMAGE_NAME: technova-api
+  APP_DIR: aula-10/technova-api
+
+jobs:
+  # ============================
+  # Job 1: Lint
+  # ============================
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aula-10/technova-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: aula-10/technova-api/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+
+  # ============================
+  # Job 2: Test
+  # ============================
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: aula-10/technova-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: aula-10/technova-api/package-lock.json
+      - run: npm ci
+      - run: npm run test:ci
+
+  # ============================
+  # Job 3: Build e Push (Amazon ECR)
+  # ============================
+  build-push:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar credenciais AWS (Learner Lab)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}   # Learner Lab exige
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login no Amazon ECR
+        id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Extrair metadata (tags)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.ecr.outputs.registry }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build e Push
+        uses: docker/build-push-action@v5
+        with:
+          context: aula-10/technova-api
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # ============================
+  # Job 4: Deploy na EC2 (Recreate)
+  # ============================
+  deploy:
+    needs: build-push
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Deploy via SSH (Recreate Strategy)
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY,AWS_SESSION_TOKEN,AWS_ACCOUNT_ID,GITHUB_SHA
+          script: |
+            REGISTRY=${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+
+            echo "🔐 Login no Amazon ECR..."
+            aws ecr get-login-password --region us-east-1 \
+              | docker login --username AWS --password-stdin "$REGISTRY"
+
+            echo "📦 Fazendo pull da nova imagem..."
+            docker pull "$REGISTRY/technova-api:latest"
+
+            echo "🛑 Parando container atual (Recreate)..."
+            docker stop technova-api || true
+            docker rm technova-api || true
+
+            echo "▶️ Iniciando novo container..."
+            docker run -d \
+              --name technova-api \
+              -p 3000:3000 \
+              --restart unless-stopped \
+              -e NODE_ENV=production \
+              -e GITHUB_SHA="$GITHUB_SHA" \
+              "$REGISTRY/technova-api:latest"
+
+            echo "✅ Container iniciado!"
+            docker ps | grep technova-api
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: Health Check
+        run: |
+          echo "⏳ Aguardando aplicação iniciar..."
+          sleep 10
+          for i in $(seq 1 20); do
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+              http://${{ secrets.EC2_HOST }}:3000/health || echo "000")
+            if [ "$HTTP_CODE" = "200" ]; then
+              echo "✅ Health check passed! (HTTP $HTTP_CODE)"
+              exit 0
+            fi
+            echo "⏳ Tentativa $i/20 - HTTP $HTTP_CODE - aguardando 5s..."
+            sleep 5
+          done
+          echo "❌ Health check falhou após 20 tentativas!"
+          exit 1
+
+      - name: Notificar deploy bem-sucedido
+        if: success()
+        run: |
+          echo "✅ Deploy da versão ${{ github.sha }} concluído com sucesso!"
+          echo "Deployed by: ${{ github.actor }}"
