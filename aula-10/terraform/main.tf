@@ -55,6 +55,7 @@ resource "local_file" "deploy_key" {
 resource "aws_ecr_repository" "technova_api" {
   name                 = "technova-api"
   image_tag_mutability = "MUTABLE"
+  force_delete         = true # permite destroy mesmo com imagens dentro
 
   image_scanning_configuration {
     scan_on_push = true
